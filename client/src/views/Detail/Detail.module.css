@@ -1,0 +1,88 @@
+.detailContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.detailImage{
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    width: 30%;
+    min-height: 100vh;
+    background-color: var(--primary-color);
+}
+
+.detailImage img{
+    width: 90%;
+    height: auto;
+}
+
+@media (max-width: 600px){
+    .detailImage{
+        width: 80%;
+    }
+}
+
+.detailH2{
+    color: var(--secondary-color);
+}
+
+.detailH4, .detailP{
+    color: var(--light-color);
+}
+
+.detailP, .detailH4{
+    margin:15px;
+}
+
+.detailP{
+    word-wrap: break-word; 
+}
+
+.detailLoading{
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    text-align: center;
+    align-items: baseline;
+    display: inline-block;
+    padding: 15px;
+    margin-top: 175px;
+}
+
+.containerSpinner{
+    height: 82.5vh;
+}
+
+.spinner, .spinner:after{
+    width: 64px;
+    height: 64px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -32px;
+    margin-left: -32px;
+    border-radius: 50px;
+    z-index: 2;
+}
+
+.spinner{
+    background-color: transparent;
+    border-top: 10px solid rgb(0,0,0);
+    border-right: 10px solid rgb(0,0,0);
+    border-bottom: 10px solid rgb(0,0,0);
+    border-left: 10px solid rgb(0,0,0,.2);
+    transform: translateZ(0);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: .8s;
+    animation-name: spinner-loading;
+}
+
+@keyframes spinner-loading{
+    0% {
+        transform: rotate(0deg)
+    } to {
+        transform: rotate(1turn);
+    }
+}

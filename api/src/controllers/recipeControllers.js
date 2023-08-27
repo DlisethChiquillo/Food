@@ -13,13 +13,13 @@ const { Op } = require("sequelize"); //se utiliza para realizar operaciones en l
 
 
  
- const recipeNameAll = async(name)=>{ //defino una funcion que recibe un argumentos, esta funcion se encarga de buscar y obtener detalles de recetas 
+ const recipeNameAll = async(title)=>{ //defino una funcion que recibe un argumentos, esta funcion se encarga de buscar y obtener detalles de recetas 
     let responseApi,responseBD
 
 //! ********************     PEDIDO DE DATOS     ********************
-    if(name!==undefined){ //proporciono un name si no es undefined se realiza busque en la api y base de datos,
+    if(title!==undefined){ //proporciono un title si no es undefined se realiza busque en la api y base de datos,
 
-        const nameminus= name.toLowerCase()
+        const nameminus= title.toLowerCase()
 
         // ********************     API     ********************
             responseApi = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${nameminus}&number=100&addRecipeInformation=true`);
@@ -27,12 +27,12 @@ const { Op } = require("sequelize"); //se utiliza para realizar operaciones en l
 
         // ********************     BD     ********************
             responseBD = await Recipe.findAll({
-                where: {name: {
+                where: {title: {
                     [Op.iLike]: `%${nameminus}%`
                 }},
                 include:{
                         model:Diets, 
-                        attributes:["name"]}
+                        attributes:["title"]}
                     });
             responseBD = await responseBD  //// es una promesa por lo tanto await
     }
@@ -48,7 +48,7 @@ const { Op } = require("sequelize"); //se utiliza para realizar operaciones en l
             responseBD = await Recipe.findAll({
                     include:{
                             model:Diets, 
-                            attributes:["name"]}
+                            attributes:["title"]}
                         });
             responseBD = await responseBD  //// es una promesa por lo tanto await
 
@@ -68,20 +68,20 @@ const { Op } = require("sequelize"); //se utiliza para realizar operaciones en l
 
 
             id:ele?.id,
-            name:ele?.name,
+            title:ele?.title,
             image:ele?.image,
             healthScore:ele?.healthScore,
             summary:ele?.summary,
             // instructions:ele.analyzedInstructions[0]?.steps.map(step =>step.step),
             // ingredients:ele.analyzedInstructions[0]?.steps.map(ele =>ele.ingredients.map(ele=>ele).map(ele=>{
-            //     if(datosIngredientes.indexOf(ele.name)===-1) datosIngredientes.push(ele.name)
+            //     if(datosIngredientes.indexOf(ele.title)===-1) datosIngredientes.push(ele.title)
             //     return datosIngredientes
 
                 
             // })),
 
             // equipment:(ele.analyzedInstructions[0]?.steps.map(ele =>ele.equipment).filter(ele=>ele.length!==0).map(ele=>ele.map(ele=>{
-            //     if(datosequipment.indexOf(ele.name)===-1) datosequipment.push(ele.name)
+            //     if(datosequipment.indexOf(ele.title)===-1) datosequipment.push(ele.title)
             //     return datosequipment
             // }))),
 
@@ -97,14 +97,14 @@ const { Op } = require("sequelize"); //se utiliza para realizar operaciones en l
     let dataBD=responseBD.map(ele=>{
         const valoresFinale ={
             id:ele.dataValues?.id,
-            name:ele.dataValues?.name,
+            title:ele.dataValues?.title,
             image:ele.dataValues?.image ,
             healthScore:ele.dataValues?.healthScore,
             summary:ele.dataValues?.summary,
             // instructions:ele.dataValues?.instructions,
             // ingredients:ele.dataValues?.ingredients,
             // equipment:ele.dataValues?.equipment,
-            diets:ele.dataValues?.diets.map(ele=>ele.name)
+            diets:ele.dataValues?.diets.map(ele=>ele.title)
         }
         return valoresFinale
     })
@@ -149,7 +149,7 @@ const { Op } = require("sequelize"); //se utiliza para realizar operaciones en l
  //`https://api.spoonacular.com/recipes/complexSearch?&apiKey=${API_KEY}&addRecipeInformation=true&number=60`
  
  
- //`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=100&addRecipeInformation=true` x name
+ //`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=100&addRecipeInformation=true` x title
  
  
  //`https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}&addRecipeInformation=true` x id

@@ -9,9 +9,9 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       // unique: true,
       // set(value){
       //   this.setDataValue("name",value.toLowerCase())

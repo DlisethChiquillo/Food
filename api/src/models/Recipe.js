@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV1,
       allowNull:false
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
       // set(value){
